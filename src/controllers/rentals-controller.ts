@@ -5,11 +5,13 @@ import rentalsService from "../services/rentals-service";
 import { isValid } from "../utils/id-validator";
 import { RentalFinishInput, RentalInput } from "../protocols";
 
+// pegar todos os alugueis
 export async function getRentals(req: Request, res: Response) {
   const rentals = await rentalsService.getRentals();
   res.send(rentals);
 }
 
+// pegar um aluguel por id
 export async function getRentalById(req: Request, res: Response) {
   const id = parseInt(req.params.id);
   if (!isValid(id)) return res.sendStatus(httpStatus.BAD_REQUEST);
@@ -23,6 +25,7 @@ export async function getRentalById(req: Request, res: Response) {
   }
 }
 
+// criando um aluguel
 export async function createRental(req: Request, res: Response, next: NextFunction) {
   const rentalInput = req.body as RentalInput;
   try {
@@ -43,6 +46,7 @@ export async function createRental(req: Request, res: Response, next: NextFuncti
   }
 }
 
+// finalizando um aluguel
 export async function finishRental(req: Request, res: Response, next: NextFunction) {
   const { rentalId } = req.body as RentalFinishInput;
   try {

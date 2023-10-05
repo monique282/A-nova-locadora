@@ -2,10 +2,13 @@ import prisma from "../database";
 import { RentalInput } from "../protocols";
 import { RENTAL_LIMITATIONS } from "../services/rentals-service";
 
+
+// prgando todos os alugueis
 function getRentals() {
   return prisma.rental.findMany();
 }
 
+// pegando o aluguel por id
 function getRentalById(id: number, includeMovies = false) {
   return prisma.rental.findUnique({
     where: { id },
@@ -15,6 +18,7 @@ function getRentalById(id: number, includeMovies = false) {
   })
 }
 
+// pegando o aluguel de um usuario especifico
 function getRentalsByUserId(userId: number, closed = true) {
   return prisma.rental.findMany({
     where: {
