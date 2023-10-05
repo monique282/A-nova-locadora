@@ -20,7 +20,7 @@ export async function getRentalById(req: Request, res: Response) {
     const rental = await rentalsService.getRentalById(id);
     res.send(rental);
   } catch (error) {
-    console.log(error);
+  
     return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }

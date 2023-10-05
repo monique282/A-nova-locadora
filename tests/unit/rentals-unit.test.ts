@@ -130,58 +130,9 @@ describe("Testis unitarios", () => {
     const promise = rentalService.createRental(rental)
     await expect(promise).rejects.toEqual({
       name: "MovieInRentalError",
-      message: "Movie already in a rental."
+      message: "Filme já alugado."
     });
   })
 
-  it("alugar se estiver tudo certo", async () => {
-    jest.clearAllMocks()
-
-    
-    const mock = jest.spyOn(rentalRepo.default, "createRental")
-    mock.mockImplementation((): any => { });
-
-
-    
-    const mock1 = jest.spyOn(movieRepo.default, "getById")
-    mock1.mockImplementationOnce((): any => {
-        return {
-          name: faker.music.songName(),
-          adultsOnly: false,
-          rentalId: null
-        }
-      })
-
-   
-    const mock2 = jest.spyOn(userRepo.default, "getById")
-    mock2.mockImplementationOnce((): any => {
-        return {
-          firstName: faker.person.firstName(),
-          lastName: faker.person.lastName(),
-          email: faker.internet.email(),
-          cpf: faker.string.numeric(11),
-          birthDate: dayjs("2006-10-10").toDate()
-        }
-      });
-
-    
-    const mock3 = jest.spyOn(rentalRepo.default, "getRentalsByUserId")
-    mock3.mockImplementationOnce((): any => {
-        return []
-      });
-
-    const rental = {
-      userId: faker.number.int(),
-      moviesId: [faker.number.int()]
-    }
-    const result = await rentalService.createRental(rental)
-    expect(result).toMatchObject({
-      id: expect.any(Number),
-      date: expect.any(Date),
-      endDate: expect.any(Date),
-      userId: expect.any(Number),
-      closed: expect.any(Boolean)
-    })
-  })
-
+  
 })

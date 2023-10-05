@@ -81,7 +81,9 @@ async function checkMoviesValidForRental(moviesId: number[], user: User) {
     const movieId = moviesId[i];
     const movie = await moviesRepository.getById(movieId);
 
-    if (!movie) throw notFoundError("Filme não encontrado.");
+    if (!movie) {
+      throw notFoundError("Filme não encontrado.")
+    };
     if (movie.rentalId) {
       throw movieAlreadyInRental("Filme já alugado.");
     }
